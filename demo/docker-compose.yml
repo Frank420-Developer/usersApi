@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  naat:
+    build:
+      context: .
+      target: development
+    ports:
+      - 8080:8081
+    environment:
+      - SERVER_PORT=8081
+      - MYSQL_URL=jdbc:mysql://mysqlserver/naat
+    volumes:
+      - ./:/app
+  mysqlserver:
+    image: mysql/mysql-server
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=activtyuser
+      - MYSQL_PASSWORD=Panchit0
+      - MYSQL_DATABASE=naat
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+volumes:
+  mysql_data:
+  mysql_config:
