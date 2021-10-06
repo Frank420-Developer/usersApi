@@ -1,0 +1,22 @@
+CREATE TABLE users(
+id_user VARCHAR(36) PRIMARY KEY DEFAULT (BIN_TO_UUID(UUID_TO_BIN(UUID()))),
+name VARCHAR(35) NOT NULL,
+last_name VARCHAR(70) NOT NULL,
+email VARCHAR(256) NOT NULL,
+creation_date TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP(3),
+modification_date TIMESTAMP(3) DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+vacation_start TIMESTAMP(3),
+vacation_ending TIMESTAMP(3),
+role VARCHAR(20),
+enabled BIT(1) DEFAULT 1,
+CONSTRAINT users_email_uk UNIQUE(email),
+CONSTRAINT fk_roles_rol_id FOREIGN KEY (role) REFERENCES Roles (role_id))
+
+ENGINE=INNODB
+
+
+CREATE TABLE Roles(
+ role_id VARCHAR(20),
+ description VARCHAR(60),
+ CONSTRAINT pk_roles_role_id PRIMARY KEY(role_id)
+);
